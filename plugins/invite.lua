@@ -39,3 +39,4 @@ return {
 }
 
 end
+--use it only for admins so your bot wont report
