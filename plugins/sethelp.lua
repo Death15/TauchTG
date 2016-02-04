@@ -8,7 +8,7 @@ local function save_value(msg, name, value)
   end
   if hash then
     redis:hset(hash, name, value)
-    return "Saved "..name
+    return "Saved Group Help"
   end
 end
 local function run(msg, matches)
@@ -25,7 +25,7 @@ end
 
 return {
   patterns = {
-   "^[!/]save ([^%s]+) (.+)$"
+   "^[!/]set ([^%s]+) (.+)$"
   }, 
   run = run 
 }
