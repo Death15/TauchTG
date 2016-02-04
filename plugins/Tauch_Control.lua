@@ -119,9 +119,9 @@ local function run(msg,matches)
       		end
       	end
     end
-    if matches[1] == "settauchphoto" then
+    if matches[1] == "settgphoto" then
     	redis:set("bot:photo", "waiting")
-    	return 'Please send me bot photo now'
+    	return 'Please send me Tauch-TG photo now'
     end
     if matches[1] == "markread" then
     	if matches[2] == "on" then
@@ -165,7 +165,7 @@ local function run(msg,matches)
       get_dialog_list(get_dialog_list_callback, {target = msg.from.id})
       return "I've sent dialog list with both json and text format to your private"
     end
-    if matches[1] == "whois" then
+    if matches[1] == "resuser" then
       user_info("user#id"..matches[2],user_info_callback,{msg=msg})
     end
     return
@@ -178,7 +178,7 @@ return {
 	"^[!/](blockuser) (%d+)$",
 	"^[!/](markread) (on)$",
 	"^[!/](markread) (off)$",
-	"^[!/](settauchphoto)$",
+	"^[!/](set[Tt][Gg]photo)$",
 	"%[(photo)%]",
 	"^[!/](contactlist)$",
 	"^[!/](dialoglist)$",
