@@ -4,10 +4,10 @@ do
 
 local function create_group(msg)
         -- superuser and admins only (because sudo are always has privilege)
-        if is_sudo(msg) or is_realm(msg) and is_admin(msg) then
+        if is_admin(msg) or is_realm(msg) and is_admin(msg) then
                 local group_creator = msg.from.print_name
                 create_group_chat (group_creator, group_name, ok_cb, false)
-                return 'Group [ '..string.gsub(group_name, '_', ' ')..' ] has been created.'
+                return 'Group  '..string.gsub(group_name, '_', ' ')..'  has been created. check Your Maseage's'
         end
 end
 
@@ -16,7 +16,7 @@ local function create_realm(msg)
         if is_sudo(msg) or is_realm(msg) and is_admin(msg) then
                 local group_creator = msg.from.print_name
                 create_group_chat (group_creator, group_name, ok_cb, false)
-                return 'Realm [ '..string.gsub(group_name, '_', ' ')..' ] has been created.'
+                return 'Realm  '..string.gsub(group_name, '_', ' ')..'  has been created. check Tour Maseages'
         end
 end
 
@@ -299,7 +299,7 @@ local function groups_list(msg)
         if not data[tostring(groups)] then
                 return 'No groups at the moment'
         end
-        local message = 'List of groups:\n'
+        local message = 'List of tauchTG groups:\n'
         for k,v in pairs(data[tostring(groups)]) do
                 local settings = data[tostring(v)]['settings']
                 for m,n in pairs(settings) do
@@ -398,7 +398,7 @@ local function username_id(cb_extra, success, result)
         member_id = v.id
         if mod_cmd == 'addadmin' then
             return admin_user_promote(receiver, member_username, member_id)
-        elseif mod_cmd == 'removeadmin' then
+        elseif mod_cmd == 'demadmin' then
             return admin_user_demote(receiver, member_username, member_id)
         end
       end
@@ -460,7 +460,7 @@ function run(msg, matches)
 		chat_info(receiver, returnids, {receiver=receiver})
 	end
 
-    if matches[1] == 'creategroup' and matches[2] then
+    if matches[1] == 'create' and matches[2] then
         group_name = matches[2]
         group_type = 'group'
         return create_group(msg)
@@ -556,7 +556,7 @@ function run(msg, matches)
                   return set_log_group(msg)
                 end
               end
-                if matches[1] == 'kill' and matches[2] == 'chat' then
+                if matches[1] == 'modrem' and matches[2] == 'chat' then
                   if not is_admin(msg) then
                      return nil
                   end
@@ -569,7 +569,7 @@ function run(msg, matches)
                      return 'Error: Group '..matches[3]..' not found' 
                     end
                  end
-                if matches[1] == 'kill' and matches[2] == 'realm' then
+                if matches[1] == 'modrem' and matches[2] == 'realm' then
                   if not is_admin(msg) then
                      return nil
                   end
@@ -629,14 +629,14 @@ function run(msg, matches)
                    elseif msg.to.type == 'user' then 
                         groups_list(msg)
 		        send_document("user#id"..msg.from.id, "./groups/lists/groups.txt", ok_cb, false)	
-			return "Group list created" --group_list(msg)
+			return "Group list created for Tauch" --group_list(msg)
                   end
 		end
 		if matches[1] == 'list' and matches[2] == 'realms' then
                   if msg.to.type == 'chat' then
 			realms_list(msg)
 		        send_document("chat#id"..msg.to.id, "./groups/lists/realms.txt", ok_cb, false)	
-			return "Realms list created" --realms_list(msg)
+			return "Realms list created for tauchTG" --realms_list(msg)
                    elseif msg.to.type == 'user' then 
                         realms_list(msg)
 		        send_document("user#id"..msg.from.id, "./groups/lists/realms.txt", ok_cb, false)	
@@ -658,7 +658,7 @@ end
 
 return {
   patterns = {
-    "^[!/](creategroup) (.*)$",
+    "^[!/](create) (.*)$",
     "^[!/](createrealm) (.*)$",
     "^[!/](setabout) (%d+) (.*)$",
     "^[!/](setrules) (%d+) (.*)$",
@@ -671,10 +671,10 @@ return {
         "^[!/](wholist)$",
         "^[!/](who)$",
         "^[!/](type)$",
-    "^[!/](kill) (chat) (%d+)$",
-    "^[!/](kill) (realm) (%d+)$",
+    "^[!/](modrem) (chat) (%d+)$",
+    "^[!/](modrem) (realm) (%d+)$",
     "^[!/](addadmin) (.*)$", -- sudoers only
-    "^[!/](removeadmin) (.*)$", -- sudoers only
+    "^[!/](demadmin) (.*)$", -- sudoers only
     "^[!/](list) (.*)$",
         "^[!/](log)$",
         "^[!/](help)$",
@@ -684,4 +684,4 @@ return {
 }
 end
 
-
+-- By @ArashTauch :)
