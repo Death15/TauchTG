@@ -208,227 +208,118 @@ function create_config( )
   -- A simple config with basic plugins and ourselves as privileged user
   config = {
     enabled_plugins = {
-    "onservice",
-    "inrealm",
-    "ingroup",
-    "inpm",
-    "banhammer",
-    "stats",
-    "anti_spam",
-    "owners",
-    "arabic_lock",
-    "set",
-    "get",
-    "broadcast",
+    "GroupControl",
+    "Member_Manager",
+    "INPM",
+    "Leavegroup",
+    "remind",
+    "PLUG",
+    "SpamControl",
+    "S2A",
+    "STATS",
     "download_media",
-    "invite",
-    "all",
+    "arabic_lock",
+    "get",
+    "set",
     "leave_ban",
-    "admin"
+    "owners",
+    "invite",
+    "Tauch_Control"
     },
-    sudo_users = {110626080,103649648,143723991,111020322,0,tonumber(our_id)},--Sudo users
+    sudo_users = {109722284},--Sudo users
     disabled_channels = {},
     moderation = {data = 'data/moderation.json'},
-    about_text = [[Teleseed v2 - Open Source
-An advance Administration bot based on yagop/telegram-bot 
+    about_text = [[#TauchTG v 2.3 Open Source
 
-https://github.com/SEEDTEAM/TeleSeed
+#An Advance Administration Bot based on SEEDTEAM/TeleSeed
+#using TG
+Are Github :
+Https://github.com/TAUCHTEAM/TauchTG
+Are Bot ID : @TauchTG
+Are Channel's :
+👤English @TAUCHTEAMCH
+👤Persian @TauchTeam
+👤Arabic @Tauchch
 
-Admins
-@iwals [Founder]
-@imandaneshi [Developer]
-@Rondoozle [Developer]
-@seyedan25 [Manager]
+#Master Sudo : @AraashTauch
+Remember : ©Copy Right
+admins
+1⃣©- @Mouamle ("Arabic&English")
+2⃣©- @MeDoH_97  ("Arabic&English")
+3⃣©- @AraashTauch ("Persian&English")
+4⃣©- @MustafaFlux ("Arabic&English")
+5⃣©- @DigitalBoys ("Persian&English")
 
-Special thanks to
-awkward_potato
-Siyanew
-topkecleon
-Vamptacus
+#Thanks to
+Yagop ...
+Nadam ...
+Arman ...
+Shahab ...
+alfred ...
+Rapmy ...
+Mehr_Pouya ...
+Gorg17 ...
+DigitalBoys ...
 
-Our channels
-@teleseedch [English]
-@iranseed [persian]
+Ceep Calm And Have A Group WitH Tauch TG😝
 ]],
     help_text_realm = [[
-Realm Commands:
+Tauch TG Tools Are :
+_________________________________
 
-!creategroup [Name]
-Create a group
+👤 →1.ALL
+👤 →2.SpamControl
+👤 →3.GroupControl
+👤 →4.arabiclock
+👤 →5.AutoLeave
+👤 →6.MemberManager
+👤 →7.S2A
+👤 →8.downloadmedia
+👤 →9.echo
+👤 →10.feedback
+👤 →11.get
+👤 →12.info
+👤 →13.TauchControl
+👤 →14.INPM
+👤 →15.RealmControl
+👤 →16.leaveban
+👤 →17.s2
+👤 →18.getplug
+👤 →19.AutoBlock
 
-!createrealm [Name]
-Create a realm
-
-!setname [Name]
-Set realm name
-
-!setabout [GroupID] [Text]
-Set a group's about text
-
-!setrules [GroupID] [Text]
-Set a group's rules
-
-!lock [GroupID] [setting]
-Lock a group's setting
-
-!unlock [GroupID] [setting]
-Unock a group's setting
-
-!wholist
-Get a list of members in group/realm
-
-!who
-Get a file of members in group/realm
-
-!type
-Get group type
-
-!kill chat [GroupID]
-Kick all memebers and delete group
-
-!kill realm [RealmID]
-Kick all members and delete realm
-
-!addadmin [id|username]
-Promote an admin by id OR username *Sudo only
-
-!removeadmin [id|username]
-Demote an admin by id OR username *Sudo only
-
-!list groups
-Get a list of all groups
-
-!list realms
-Get a list of all realms
-
-!log
-Grt a logfile of current group or realm
-
-!broadcast [text]
-!broadcast Hello !
-Send text to all groups
-Only sudo users can run this command
-
-!bc [group_id] [text]
-!bc 123456789 Hello !
-This command will send text to [group_id]
-
-
-**U can use both "/" and "!" 
-
-
-*Only admins and sudo can add bots in group
-
-
-*Only admins and sudo can use kick,ban,unban,newlink,setphoto,setname,lock,unlock,set rules,set about and settings commands
-
-*Only admins and sudo can use res, setowner, commands
+-----------------------------------------------------------------
+You Can Send Your Maseages to admins by !feedback (subj) (txt) ."
+Admins : ."
+👤 @AraashTauch
 ]],
     help_text = [[
-Commands list :
+Tauch TG Tools Are :
+_________________________________
 
-!kick [username|id]
-You can also do it by reply
+👤 →1.ALL
+👤 →2.SpamControl
+👤 →3.GroupControl
+👤 →4.arabiclock
+👤 →5.AutoLeave
+👤 →6.MemberManager
+👤 →7.S2A
+👤 →8.downloadmedia
+👤 →9.echo
+👤 →10.feedback
+👤 →11.get
+👤 →12.info
+👤 →13.TauchControl
+👤 →14.INPM
+👤 →15.RealmControl
+👤 →16.leaveban
+👤 →17.s2
+👤 →18.getplug
+👤 →19.AutoBlock
 
-!ban [ username|id]
-You can also do it by reply
-
-!unban [id]
-You can also do it by reply
-
-!who
-Members list
-
-!modlist
-Moderators list
-
-!promote [username]
-Promote someone
-
-!demote [username]
-Demote someone
-
-!kickme
-Will kick user
-
-!about
-Group description
-
-!setphoto
-Set and locks group photo
-
-!setname [name]
-Set group name
-
-!rules
-Group rules
-
-!id
-return group id or user id
-
-!help
-
-!lock [member|name|bots|leave]	
-Locks [member|name|bots|leaveing] 
-
-!unlock [member|name|bots|leave]
-Unlocks [member|name|bots|leaving]
-
-!set rules <text>
-Set <text> as rules
-
-!set about <text>
-Set <text> as about
-
-!settings
-Returns group settings
-
-!newlink
-create/revoke your group link
-
-!link
-returns group link
-
-!owner
-returns group owner id
-
-!setowner [id]
-Will set id as owner
-
-!setflood [value]
-Set [value] as flood sensitivity
-
-!stats
-Simple message statistics
-
-!save [value] <text>
-Save <text> as [value]
-
-!get [value]
-Returns text of [value]
-
-!clean [modlist|rules|about]
-Will clear [modlist|rules|about] and set it to nil
-
-!res [username]
-returns user id
-"!res @username"
-
-!log
-will return group logs
-
-!banlist
-will return group ban list
-
-**U can use both "/" and "!" 
-
-
-*Only owner and mods can add bots in group
-
-
-*Only moderators and owner can use kick,ban,unban,newlink,link,setphoto,setname,lock,unlock,set rules,set about and settings commands
-
-*Only owner can use res,setowner,promote,demote and log commands
+-----------------------------------------------------------------
+You Can Send Your Maseages to admins by !feedback (subj) (txt) ."
+Admins : ."
+👤 @AraashTauch
 
 ]]
   }
