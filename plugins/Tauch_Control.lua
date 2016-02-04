@@ -119,37 +119,37 @@ local function run(msg,matches)
       		end
       	end
     end
-    if matches[1] == "setbotphoto" then
+    if matches[1] == "settauchphoto" then
     	redis:set("bot:photo", "waiting")
     	return 'Please send me bot photo now'
     end
     if matches[1] == "markread" then
     	if matches[2] == "on" then
     		redis:set("bot:markread", "on")
-    		return "Mark read > on"
+    		return "Mark read has been turned on"
     	end
     	if matches[2] == "off" then
     		redis:del("bot:markread")
-    		return "Mark read > off"
+    		return "Mark read has been turned off"
     	end
     	return
     end
-    if matches[1] == "pm" then
+    if matches[1] == "maseage" then
     	send_large_msg("user#id"..matches[2],matches[3])
-    	return "Msg sent"
+    	return "Msg has been sent"
     end
-    if matches[1] == "block" then
+    if matches[1] == "blockuser" then
     	if is_admin2(matches[2]) then
     		return "You can't block admins"
     	end
     	block_user("user#id"..matches[2],ok_cb,false)
     	return "User blocked"
     end
-    if matches[1] == "unblock" then
+    if matches[1] == "unblockuser" then
     	unblock_user("user#id"..matches[2],ok_cb,false)
     	return "User unblocked"
     end
-    if matches[1] == "import" then--join by group link
+    if matches[1] == "importlink" then--join by group link
     	local hash = parsed_url(matches[2])
     	import_chat_link(hash,ok_cb,false)
     end
@@ -172,20 +172,19 @@ local function run(msg,matches)
 end
 return {
   patterns = {
-	"^[!/](pm) (%d+) (.*)$",
-	"^[!/](import) (.*)$",
-	"^[!/](unblock) (%d+)$",
-	"^[!/](block) (%d+)$",
+	"^[!/](maseage) (%d+) (.*)$",
+	"^[!/](importlink) (.*)$",
+	"^[!/](unblockuser) (%d+)$",
+	"^[!/](blockuser) (%d+)$",
 	"^[!/](markread) (on)$",
 	"^[!/](markread) (off)$",
-	"^[!/](setbotphoto)$",
+	"^[!/](settauchphoto)$",
 	"%[(photo)%]",
 	"^[!/](contactlist)$",
 	"^[!/](dialoglist)$",
 	"^[!/](delcontact) (%d+)$",
-	"^[!/](whois) (%d+)$"
+	"^[!/](getid) (%d+)$"
   },
   run = run,
 }
---By @imandaneshi :)
---https://github.com/SEEDTEAM/TeleSeed/blob/master/plugins/admin.lua
+--By @ArashTauch :)
