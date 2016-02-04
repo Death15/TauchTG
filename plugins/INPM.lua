@@ -40,7 +40,7 @@ end
 local function run(msg, matches)
   if msg.to.type ~= 'chat' or is_sudo(msg) or is_admin(msg) and is_realm(msg) then
 	 local data = load_data(_config.moderation.data)
-    if matches[1] == 'join' and data[tostring(matches[2])] then
+    if matches[1] == 'joingroup' and data[tostring(matches[2])] then
         if is_banned(msg.from.id, matches[2]) then
 	    return 'You are banned.'
 	 end
@@ -80,11 +80,11 @@ return {
     patterns = {
       "^[/!](chats)$",
       "^[/!](chatlist)$",
-      "^[/!](join) (.*)$",
+      "^[/!](joingroup) (.*)$",
       "^[/!](kickme) (.*)$",
       "^!!tgservice (chat_add_user)$"
     },
     run = run,
 }
 end
-
+--by ArashTauch :)
