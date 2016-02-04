@@ -110,10 +110,10 @@ local function kick_ban_res(extra, success, result)
         local hash =  'banned:'..chat_id
         redis:srem(hash, member_id)
         return 'User '..user_id..' unbanned'
-      elseif get_cmd == 'banall' then
-        send_large_msg(receiver, 'User @'..member..' ['..member_id..'] globally banned')
+      elseif get_cmd == 'glban' then
+        send_large_msg(receiver, 'User @'..member..'['..member_id..'] globally banned')
         return banall_user(member_id, chat_id)
-      elseif get_cmd == 'unbanall' then
+      elseif get_cmd == 'glunban' then
         send_large_msg(receiver, 'User @'..member..' ['..member_id..'] un-globally banned')
         return unbanall_user(member_id, chat_id)
       end
@@ -131,7 +131,7 @@ local function run(msg, matches)
     elseif matches[1]:lower() == 'id' then
       local name = user_print_name(msg.from)
       savelog(msg.to.id, name.." ["..msg.from.id.."] used /id ")
-      return "Group ID for " ..string.gsub(msg.to.print_name, "_", " ").. ":\n\n"..msg.to.id  
+      return "Your ID : "..msg.from.id.."a\n\nGroup ID :\n\n"..msg.to.id  
     end
   end
   if matches[1]:lower() == 'kickme' then-- /kickme
@@ -257,7 +257,7 @@ end
     return
   end
 
-  if matches[1]:lower() == 'banall' then -- Global ban
+  if matches[1]:lower() == 'glban' then -- Global ban
     if type(msg.reply_id) ~="nil" and is_admin(msg) then
       return get_message(msg.reply_id,banall_by_reply, false)
     end
@@ -269,7 +269,7 @@ end
          	return false 
         end
         	banall_user(targetuser)
-       		return 'User ['..user_id..' ] globally banned'
+       		return 'User ('..user_id..') banned from all!'
       else
 	local cbres_extra = {
 		chat_id = msg.to.id,
@@ -281,7 +281,7 @@ end
 		res_user(username, kick_ban_res, cbres_extra)
       	end
   end
-  if matches[1]:lower() == 'unbanall' then -- Global unban
+  if matches[1]:lower() == 'glunban' then -- Global unban
     local user_id = matches[2]
     local chat_id = msg.to.id
       if string.match(matches[2], '^%d+$') then
@@ -289,7 +289,7 @@ end
           	return false 
         end
        		unbanall_user(user_id)
-        	return 'User ['..user_id..' ] removed from global ban list'
+        	return 'User ('..user_id..' ) unbanned from all!'
       else
 	local cbres_extra = {
 		chat_id = msg.to.id,
@@ -308,16 +308,16 @@ end
 
 return {
   patterns = {
-    "^[!/]([Bb]anall) (.*)$",
-    "^[!/]([Bb]anall)$",
+    "^[!/]([Gg]lban) (.*)$",
+    "^[!/]([Gg]lban)$",
     "^[!/]([Bb]anlist) (.*)$",
     "^[!/]([Bb]anlist)$",
     "^[!/]([Gg]banlist)$",
     "^[!/]([Bb]an) (.*)$",
     "^[!/]([Kk]ick)$",
     "^[!/]([Uu]nban) (.*)$",
-    "^[!/]([Uu]nbanall) (.*)$",
-    "^[!/]([Uu]nbanall)$",
+    "^[!/]([Gg]lunban) (.*)$",
+    "^[!/]([Gg]lunban)$",
     "^[!/]([Kk]ick) (.*)$",
     "^[!/]([Kk]ickme)$",
     "^[!/]([Bb]an)$",
