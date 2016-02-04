@@ -591,7 +591,7 @@ local function setowner_by_reply(extra, success, result)
   data[tostring(msg.to.id)]['set_owner'] = tostring(msg.from.id)
       save_data(_config.moderation.data, data)
       savelog(msg.to.id, name_log.." ["..msg.from.id.."] setted ["..msg.from.id.."] as owner")
-      local text = msg.from.print_name:gsub("_", " ").." is the owner now"
+      local text = msg.from.print_name:gsub("_", " ").." Has Been Promoted As Moderator Leader For This Group!"
       return send_large_msg(receiver, text)
 end
 
@@ -1075,19 +1075,19 @@ local function run(msg, matches)
        savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
       return "Group link:\n"..group_link
     end
-    if matches[1] == 'setowner' and matches[2] then
-      if not is_owner(msg) then
-        return "For owner only!"
+    if matches[1] == 'spromote' and matches[2] then
+      if not is_admin(msg) then
+        return "For ADmins only!"
       end
       data[tostring(msg.to.id)]['set_owner'] = matches[2]
       save_data(_config.moderation.data, data)
       savelog(msg.to.id, name_log.." ["..msg.from.id.."] set ["..matches[2].."] as owner")
-      local text = matches[2].." added as owner"
+      local text = matches[2].." Has been Promoted As Moderator Leader For This Group!"
       return text
     end
-    if matches[1] == 'setowner' and not matches[2] then
-      if not is_owner(msg) then
-        return "only for the owner!"
+    if matches[1] == 'spromote' and not matches[2] then
+      if not is_admin(msg) then
+        return "For Admins Only!"
       end
       if type(msg.reply_id)~="nil" then
           msgr = get_message(msg.reply_id, setowner_by_reply, false)
@@ -1238,8 +1238,8 @@ return {
   "^[!/](demote)",
   "^[!/](set) ([^%s]+) (.*)$",
   "^[!/](lock) (.*)$",
-  "^[!/](setowner) (%d+)$",
-  "^[!/](setowner)",
+  "^[!/](spromote) (%d+)$",
+  "^[!/](spromote)",
   "^[!/](owner)$",
   "^[!/](res) (.*)$",
   "^[!/](setgpowner) (%d+) (%d+)$",-- (group id) (owner id)
@@ -1258,5 +1258,5 @@ return {
   run = run
 }
 end
-
+-- by ArashTauch
 
